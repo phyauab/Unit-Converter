@@ -1,12 +1,18 @@
 package sample;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-public class Controller {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class Controller implements Initializable {
 
     @FXML
     private Label label_from;
@@ -21,18 +27,45 @@ public class Controller {
     private TextField tf_to;
 
     @FXML
-    private ListView lv_from;
+    private ListView<String> lv_from;
 
     @FXML
-    private ListView lv_to;
+    private ListView<String> lv_to;
 
     @FXML
     private Button convert;
 
+    LengthConverter lengthConverter = new LengthConverter();
+
     @FXML
     void convert(){
-        String s = tf_from.getText();
-        tf_to.setText(s);
+        String input = tf_from.getText();
+        //String selectedItem = lv_from.getSelectionModel().getSelectedItem();
+        int indexFrom = lv_from.getSelectionModel().getSelectedIndex();
+        int indexTo = lv_to.getSelectionModel().getSelectedIndex();
+        double result = 0;
+
+        try {
+            result = lengthConverter.validateInput(input);
+        } catch (Exception e){
+            System.out.println("Invalid input");
+        }
+        System.out.println(indexFrom);
+        tf_to.setText(lengthConverter.convertLength(result, indexFrom, indexTo));
+
     }
 
+    @FXML
+    void loadListView(){
+        ObservableList<String> lengthList = FXCollections.observableArrayList(lengthConverter.getLENGTH_UNIT());
+        lengthList.removeAll();
+        lv_from.setItems(lengthList);
+        lv_to.setItems(lengthList);
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadListView();
+    }
 }

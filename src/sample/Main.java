@@ -13,6 +13,7 @@ public class Main extends Application {
     private final String TITLE = "Unit Converter";
     private final int WIDTH = -1;
     private final int HEIGHT = -1;
+    private Controller controller = new Controller();
 
 
     @Override
@@ -22,6 +23,8 @@ public class Main extends Application {
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();
+
+
     }
 
 
