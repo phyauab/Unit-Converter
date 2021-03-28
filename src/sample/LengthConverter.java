@@ -16,11 +16,11 @@ public class LengthConverter extends Converter{
             {1852000,185200,1852,1.852,72913.385826772,6076.1154855643,2025.3718285214,1.1507794480235,1}
     };
 
-    public String[] getLENGTH_UNIT(){
+    public String[] getUnit(){
         return LENGTH_UNIT;
     }
 
-    public String convertLength(double input, int from, int to){
+    public String convert(double input, int from, int to){
         return Double.toString(input * conversionTable[from][to]);
     }
 
