@@ -47,10 +47,12 @@ public class Controller implements Initializable {
 
         try {
             result = lengthConverter.validateInput(input);
+            if(indexFrom < 0 || indexTo < 0)
+                throw new Exception("not yet selected");
         } catch (Exception e){
-            System.out.println("Invalid input");
+            System.out.println(e);
+            return;
         }
-        System.out.println(indexFrom);
         tf_to.setText(lengthConverter.convertLength(result, indexFrom, indexTo));
 
     }
